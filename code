@@ -1,0 +1,45 @@
+import unittest
+from selenium import webdriver
+import HtmlTestRunner
+
+
+
+class PythonOrgSearch(unittest.TestCase):
+
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+
+    def test_search_in_testfire_net(self):
+        driver = self.driver
+        driver.get("https://demo.testfire.net")
+        self.assertIn("Altoro Mutual", driver.title)
+        elem = driver.find_element_by_id("LoginLink").click()
+        username = driver.find_element_by_id("uid")
+        username.send_keys("jsmith")
+        driver.implicitly_wait(200)
+        elem1 = driver.find_element_by_name("passw")
+        elem1.send_keys("demo1234")
+        login = driver.find_element_by_name("btnSubmit")
+        login.click()
+        listbox = driver.find_element_by_name("listAccounts")
+        listbox.click()
+        list_click = driver.find_element_by_xpath('//*[@id="listAccounts"]/option[2]')
+        list_click.click()
+
+        go = driver.find_element_by_id("btnGetAccount")
+        go.click()
+
+        cell = driver.find_element_by_xpath(
+            '/html/body/table[2]/tbody/tr/td[2]/div/table/tbody/tr[1]/td/table/tbody/tr['
+            '4]/td[2]')
+        cell.text
+
+
+
+    def tearDown(self):
+        self.driver.close()
+
+
+if __name__ == "__main__":
+    keemat = 'C:/Users/Training/PycharmProjects/report'
+    unittest.main(testRunner = HtmlTestRunner.HTMLTestRunner(output= keemat))
